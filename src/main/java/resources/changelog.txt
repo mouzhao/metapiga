@@ -1,0 +1,257 @@
+------------------
+MetaPIGA 3.1
+------------------
+- Release version
+- Fixed newly introduced bug that was poping error message when saving datasets and options.
+- Fixed inconsistencies in charsets when reverting from codons to nucleotides
+
+------------------
+MetaPIGA 3.0b2
+------------------
+March 2013
+
+Bug corrections are:
+- Fixed the bug that was preventing Nexus file saving on Linux machines
+- Fixed the bug that was preventing changing the memory options from the graphical interface.
+- Fixed the bug that was displaying warnings in the graphical interface while using the console
+  interface thus crashing the program.
+- Added scroll bars to settings panels in the graphical interface thus resolving the problem of
+  low screen resolution problems.
+- Fixed the problem of visual alignment of the characters in the main window in GUI on some Linux machines 
+
+
+------------------
+MetaPIGA 3.0b0
+------------------
+February 2013
+
+New functionalities:
+- Maximum likelihood models for codon evolution (Goldman-Yang 1994 and Empirical Codon Model) with access to multiple genetic codes (universal, mitochondria, chloroplaste, etc);
+- Likelihood computation on CUDA-compatible Nvidia graphics cards (reducing run time by a factor of 10 to 20);
+- Ancestral-state reconstruction using empirical Bayesian inference.
+- Distance matrices based on trinucleotide distances on codon data;
+- Grid analysis for XWCH infrastructure users.
+
+Bug corrections are:
+- Resolved bugs with partition selection;
+- Fixed the problem with incorrect values of the ancestral states reconstruction;
+- Resolved crash that was happening when consensus tree branch values are too low;
+- Many others.
+
+
+------------------
+MetaPIGA 2.1.3
+------------------
+December 2011
+
+Bug corrections:
+- Correct problems with lower case paths translated in upper case, that caused problem in Linux.
+
+
+------------------
+MetaPIGA 2.1.2
+------------------
+September 2011
+
+New functionalities:
+- Bootstrapping added as a new search method (available in the heuristic tab of the analysis settings).
+- Add a new button 'estimate parameters' in the starting tree tab of the analysis settings (similar to the 'estimate starting parameters' of the evaluation tab).
+
+Bugs corrections:
+- Button 'estimate starting parameters' in the evaluation tab should be enable when it have to.
+- Create the full path of the result directory if it does not exist.
+
+
+------------------
+MetaPIGA 2.1.1
+------------------
+June 2011
+
+Bugs corrections:
+- Resolved an issue that caused protein datasets to crash with Hill Climbing or Simulated Annealing under GTR20 or empirical models.
+- Resolved an issue that prevented the 'memory settings' tool to correctly update the configuration file under Windows 7/Vista and Linux.  
+
+
+------------------
+MetaPIGA 2.1
+------------------
+June 2011
+
+Protein dataset support:
+- Protein models have been implemented: GTR20, Poisson and empirical models (WAG, JTT, DAYHOFF, VT, BLOSUM62, CPREV, MTREV, RTREV and MTMAM)
+- Empirical models can have empirical or data-estimated equilibrium amino-acid frequencies.
+- AIC (+AICc) and BIC model testing compares all empirical models with empirical and estimated equilibrium aa frequencies.
+
+Standard binary dataset support:
+- Standard binary data (2 states : 0,1) GTR2 model has been implemented.
+
+Ancestral sequences reconstruction:
+- A bottom panel in the tree viewer allows for ancestral sequence reconstruction using conditional likelihood values.
+- Selecting a node in the tree displays most probable ancestral sequence and distribution of conditional probabilities for each state at each site.
+- A detailled file with most probable state, as well as conditional likelihood and their distribution for each state, can be exported for the selected node, or for all internal nodes of the selected tree.
+- The ancestral state file (previous point) can be automatically generated for all internal nodes of each solution tree by enabling the "ancestral sequences" log file (either in the miscellaneous tab of the analysis settings or by adding the "ANCSEQ" token in the "LOG" Nexus command).  
+
+New meta-heuristic (random-restart hill climbing):
+- In addition to the initial hill climbing heuristic (now called 'stochastic hill climbing'), we now implement a meta-heuristic version called 'random-restart hill climbing'. It iteratively performs N hill climbings, each time with a different initial tree. Among the N solution trees, only the best is kept. 
+- User can fix the number of restarts (20 by default).
+- The stop conditions (in the ‘miscellaneous tab’) are defined for one hill climbing. For example, using random-restart hill climbing with 10 restarts and ‘2000 steps’ as the stop condition, 11 hill climbing of 2000 steps will be performed but only the best scored tree, among the 11 results, will be kept.
+- When choosing the ‘Neighbor Joining’ starting-tree option, the NJ tree will only be used for the first hill climbing, and Loose NJ trees will be generated for all restarts. Likewise, when choosing 'user trees' but the number of provided starting trees is smaller than N+1, LNJ random trees will be generated for the missing starting trees.
+- During a random-restart hill climbing, the graphical interface indicates the likelihood of the overall best solution as a green line (refreshed after each restart), the best solution of the current restart as a yellow curve, the starting tree of each restart as a red line, and each magenta vertical line indicates a restart.
+
+Dataset testing and trimming:
+- The automated trimming algorithms from trimAl have been implemented. For the description of trimAl, see:
+    'trimAl: a tool for automated alignment trimming in large-scale phylogenetic analyses.
+     Salvador Capella-Gutierrez; Jose M. Silla-Martinez; Toni Gabaldon. Bioinformatics 2009 25: 1972-1973.
+     http://trimal.cgenomics.org' 
+- The trimming functionality in MetaPIGA creates a charset with excluded characters (but they can be easily re-included in the dataset settings). 
+- The 'Test your dataset for redundancy and/or saturation problems' button has been renamed 'Test your dataset for redundancy and/or saturation problems, and apply automated trimming';
+- All dataset tests are iteratively performed when using the button 'Test your dataset ...', but each test is also separatly accessible in the 'dataset' menu.
+
+Other new functionalities:
+- File ‘drag and drop’ from system explorer/finder to MetaPIGA GUI is now supported. Drop your file(s) in the "file list" of MetaPIGA main window to open them.
+- MetaPIGA can now open an aligned dataset in standard FASTA format (and save it to the NEXUS format).
+- The dataset can be saved as a Nexus file with removed taxa and excluded charset deleted from the DATA matrix. Use menu 'File > Save modified dataset to Nexus'. 
+- In the ‘dataset settings’, POS1, POS2, and POS3 charsets can be automatically generated with a button.
+- For model testing with AIC, when the sample size is small compared to the number of parameters, the corrected AIC (AICc, Sugiura, 1978) is proposed instead.
+- For model testing with AIC and BIC, you can select which models to test. 
+- When performing model testing, a new "stop testing" button allows to stop the whole process.
+- For the ‘automatic stop condition’ (‘miscellaneous’ tab), the percentage of likelihood increase condition (0.01% by default) can be set by the user. 
+- Sufficient or necessary stop conditions have been implemented for heuristics (‘miscellaneous’ tab). The heuristic stops when ANY sufficient condition is met OR when ALL necessary conditions are met.
+- A ‘memory bar’ has been added in the lower left of the run window : it shows the actual amount of memory used by MetaPIGA. The maximum value of this bar is the amount of memory allowed to MetaPIGA.
+- Radial tree representation is now available in the Tree Viewer. 
+- Branch length optimization is now available in the Tree Viewer (through the 'model' button).
+
+Miscellaneous:
+- Opening multiple files is no more allowed with the loading file dialog. Multiple file opening is now possible by ‘drag-and-drop’ of multiple files directly from the filesystem.
+- Better ‘key shortcuts’ have been defined for menu items, using standard modifier keys (‘Ctrl-key’ for Windows or ‘cmd-key’ for Mac OS X).
+- In the Tree Viewer, output options have changed to : save selected tree(s) in Newick format, export selected tree(s) to an image file, and print selected tree(s).
+- A progress bar is displayed when loading trees in the Tree Viewer.
+- Tree lists in the ‘Tree Viewer’ and in the ‘Build Consensus Tree’ tool are filtered to display only the trees of the selected dataset.
+- Trees generated with the ‘Tree Generator’ tool are now rooted on the defined outgroup.
+- Generated trees are not displayed anymore in an intermediate window but are sent to the ‘Tree Viewer’.
+- When running single analyses with multiple cores, a 'tab' (instead of a scrolling pannel) is assigned to each core in the run window .
+- An X and Y axes are now visible in likelihood graphs in the run window.
+- The operator BLM INT is now selected by default.
+- The operator RPM has a default value of 1 instead of ALL.
+
+Bugs corrections:
+- Resolve some "freezing" issues that could happen with multi-processors analyses.
+- Improve consensus-tree generation, which was taking excessive time with large trees.
+- Resolve some memory leak problem during model testing, that could cause 'Out of memory' errors with large datasets.
+- When importing, optimizing, or manipulating tree(s), MetaPIGA now checks that the number of taxa in the tree(s) and the current dataset correspond.
+- Resolved a bug that prevented result files to be saved when the "GAP" command was missing in the Nexus file. 
+- Editing a charset (by adding characters) now works properly.
+- Slanted cladograms look far better. 
+- Printing of trees has been improved (trees are better scaled such that they are no more truncated).
+- Files and trees with identical names are better handled (an index is added to the name).
+- When running single analyses with GUI, the list of likelihoods is no more truncated.
+- Resolved a bug with the position slider on the main windows, that happened when closing all files then re-opening another one.
+
+
+------------------
+MetaPIGA 2.0.5.2
+------------------
+February 2011
+
+Bugs correction:
+- Correct some bug in the memory estimation of an analysis.
+
+
+------------------
+MetaPIGA 2.0.5.1
+------------------
+February 2011
+
+Bugs correction:
+- Installer now allow 50% of the system memory to MetaPIGA by default.
+- Reorganization of the evaluation tab in the settings analysis, to avoid graphical artefacts. 
+
+
+------------------
+MetaPIGA 2.0.5
+------------------
+January 2011
+
+New functionalities:
+- The loading file dialog now allows opening multiple files at once.
+
+Settings:
+- The initial Settings window has been split into two windows: "dataset settings" and "analysis settings". This allows users to define the dataset settings (partitions, outgroup, removal of taxa/charsets) before defining the analysis parameter settings.
+- The "gaps" setting has been moved from the "miscellaneous" tab of the "analysis settings" window to the "dataset settings" window for consistency. It has been renamed 'remove columns' and has now 3 options: (1) None (gaps are treated as Ns), (2) with gap(s), (3) with gap(s) or N(s).
+- Nexus command 'GAPS' (with argument 'ASN' or 'REMOVE') as been replaced by 'REMOVECOL' (with argument 'NONE', 'GAP' or 'NGAP'). Metapiga can still read GAPS command for backward compatibility: GAPS=ASN corresponds to REMOVECOL=NONE, and GAPS=REMOVE corresponds to REMOVECOL=GAP.
+- Results are no longer automatically saved by default in the MetaPIGA directory, but in a folder named 'MetaPIGA results' in the user home directory (e.g., 'My documents' on Windows). 
+- This output directory can now be changed in the "analysis settings" window (miscellaneous tab), or by using the new 'DIR' command in the SETTINGS section of the METAPIGA block in a nexus file.
+- The batch output directory in the MetaPIGA GUI main screen has been removed. The new 'output directory' in the "analysis settings" window (miscellaneous tab) must now be used to choose an output directory. 
+- The BATCH block command 'DIR' has been removed; the new METAPIGA block command 'DIR' must now be used to choose an output directory.
+- In the evaluation tab of the "analysis settings" window, parameters of each partition can be displayed (in previous versions, only the parameters of the first partition were displayed).
+- Parameters of different partitions can now all be saved in a Nexus file. The new nexus command allowing this is: SPECIFICPARTPARAM (see documentation for more information).
+- In the evaluation tab of the "analysis settings" window, model testing can be performed on multiple cores (number to be defined by user).
+- In the charset editor, column id are displayed vertically for better readability.
+- In the charset editor, when a range of positions is added/removed, the window scrolls automatically to the last position of the range.
+
+Miscellaneous:
+- Number of parallel replicates is limited to the number of available cores.
+- Position of each character is now shown on the Nexus data matrix.
+
+Bugs correction:
+- Correctly apply the "remove gaps" (now "remove columns") setting in the GUI.
+- Check for out-of-range parameters in the Nexus file that could cause GUI settings to crash.
+- Limit the size of the upper panel (likelihood information) in the TreeViewer and result trees dialogs.
+- Taxa names terminated with '_' were causing problems (when loading a tree with such taxa names, or displaying the metapiga data matrix). This is now corrected.
+- Trees used for LRT/AIC/BIC tests are now removed from memory after use (THIS WAS CAUSING OUT-OF-MEMORY PROBLEMS WITH LARGE DATASETS IN PREVIOUS VERSIONS).
+- Model testing (LRT/AIC/BIC) now takes the dataset partitions into account: the number of model parameters is multiplied by the number of partitions for computing the degrees of freedom.  
+
+
+------------------
+MetaPIGA 2.0.4
+------------------
+November 2010
+
+General:
+- Memory requirements have been reduced by half and the likelihood computation is approximately 20% faster.
+
+Bugs correction:
+- Changes in update 2.0.3 had introduced a bug when saving a batch file, that is now corrected. Batch files saved with MetaPIGA 2.0.3 can be recovered by changing the line 'BEGIN BATCH_SEARCH_GRAPHICAL;' by 'BEGIN BATCH;'. 
+- Prevent likelihood computation problems when a conditional likelihood is too close to zero.
+
+
+------------------
+MetaPIGA 2.0.3
+------------------
+October 2010
+
+New functionalities:
+- MetaPIGA now computes the memory necessary for running the current dataset with the selected parameters. This information is displayed at the bottom left of the settings window, and at the top of the parameters summary in the main window.
+- Added a tool that generates distance matrices (with any model) for the current dataset.
+- A button in the main window allows testing the dataset for problematic sequences (with too many ambiguities), identical sequences, and saturation problems.
+- If saturation is detected when building the distance matrix for the starting trees, a warning is thrown in the analysis window. Distances are modified to allow NJ or LNJ tree building, but it's likelily that MetaPIGA will later encounter likelihood computation problems and crash. 
+
+Bugs correction:
+- Replicate number in each result tree name is not anymore between square brackets [ ]. Indeed as [ ] denote comments in a NEXUS file, the replicate number was not taken into account when reloading those trees in MetaPIGA, resulting in trees having all the same name and only those of the last replicate being actually loaded.
+- MetaPIGA gives a correct error message when it tries to load a nexus file containing and "ENDBLOCK" token (instead of "END"). 
+
+
+------------------
+MetaPIGA 2.0.2
+------------------
+September 2010
+
+- Includes jgrapht, a library dependency allowing BioJava to read trees.
+- You can now launch MetaPIGA without any GUI or text progress, by using the 'silent' argument. 
+
+
+------------------
+MetaPIGA 2.0.1 
+------------------
+September 2010
+
+- Added links to used third party librairies in help > about.
+
+
+------------------
+MetaPIGA 2.0 
+------------------
+August 2010
+
+- Initial release
+

@@ -1,0 +1,20 @@
+You have just made a MAJOR update of MetaPIGA (version 3.0) now also implementing CODON models and multiple new features (see below). Please, check the extended manual available in the 'help' menu, in the metaPIGA folder on your hard drive, and at http://www.metapiga.org.
+
+The major additional new features in version 3.0 are:
+
+- Maximum likelihood models for codon evolution (Goldman-Yang 1994 and Empirical Codon Model) with access to multiple genetic codes (universal, mitochondria, chloroplaste, etc);
+- Likelihood computation on CUDA-compatible Nvidia graphics cards (reducing run time by a factor of 10 to 20);
+- Ancestral-state reconstruction using empirical Bayesian inference.
+- Distance matrices based on trinucleotide distances on codon data;
+- Grid analysis for XWCH infrastructure users.
+
+Bug corrections are:
+- Resolved bugs with partition selection;
+- Resolved crash that was happening when consensus tree branch values are too low;
+- Many others.
+
+Please check the "Change Log" (in the help menu) for a full list of changes.
+
+ENJOY !
+
+Djordje Grbic & Michel C. Milinkovitch
